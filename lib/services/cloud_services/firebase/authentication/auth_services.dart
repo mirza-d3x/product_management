@@ -8,6 +8,7 @@ import '../../../../domain/repositories/users/auth_repository.dart';
 class FirebaseAuthServices implements AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  @override
   Future<UserEntity> signInWithEmailAndPassword(
       String email, String password) async {
     consoleLog("Signing With email: $email");
@@ -39,6 +40,7 @@ class FirebaseAuthServices implements AuthRepository {
     }
   }
 
+  @override
   Future<void> signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -48,6 +50,7 @@ class FirebaseAuthServices implements AuthRepository {
     }
   }
 
+  @override
   Future<UserEntity> signUpWithEmailAndPassword(
       String email, String password) async {
     consoleLog("Sign up With email: $email");
