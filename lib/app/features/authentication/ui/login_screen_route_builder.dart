@@ -8,10 +8,10 @@ import 'package:techwarelab/services/cloud_services/firebase/authentication/auth
 
 class LoginRouteBuilder {
   Widget call(BuildContext context) {
-    final FirebaseAuthServices _authService = FirebaseAuthServices();
+    final FirebaseAuthServices authService = FirebaseAuthServices();
     return BlocProvider(
       create: (context) => AuthenticationCubit(
-          LoginUserUseCase(_authService), SignUpUserUseCase(_authService)),
+          LoginUserUseCase(authService), SignUpUserUseCase(authService)),
       child: const LoginScreen(),
     );
   }
