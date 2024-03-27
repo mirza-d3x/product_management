@@ -3,7 +3,7 @@ import 'package:techwarelab/constants/Exceptions/app_exceptions.dart';
 import 'package:techwarelab/domain/entities/users/users.dart';
 import 'package:techwarelab/utils/console_log.dart';
 
-import '../../../domain/repositories/users/auth_repository.dart';
+import '../../../../domain/repositories/users/auth_repository.dart';
 
 class FirebaseAuthServices implements AuthRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

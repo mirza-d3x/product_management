@@ -10,9 +10,10 @@ Route<dynamic>? Function(RouteSettings)? onGenerateAppRoute(
         return routesFactory.createLoginPageRoute();
       case RouteNames.signUp:
         return routesFactory.createSignUpPageRoute();
-      // case RouteNames.home:
-      //   return routesFactory.createHomePageRoute();
-      // case RouteNames.cart:
+      case RouteNames.products:
+        return routesFactory.createProductPageRoute();
+      case RouteNames.pin:
+        return routesFactory.createPinPageRoute();
       //   return routesFactory.createCartPageRoute();
       // case RouteNames.products:
       //   return routesFactory

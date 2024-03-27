@@ -2,7 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:techwarelab/services/cloud_services/firebase/auth_services.dart';
+import 'package:techwarelab/services/cloud_services/firebase/authentication/auth_services.dart';
 
 part 'splash_state.dart';
 
@@ -15,4 +15,6 @@ class SplashCubit extends Cubit<SplashState> {
     final bool isLogged = await _auth.isLoggedIn();
     emit(SplashInitial(isUserLoggedIn: isLogged));
   }
+
+  void checkUserPinSet() {}
 }

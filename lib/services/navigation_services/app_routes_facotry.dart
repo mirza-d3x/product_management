@@ -24,19 +24,19 @@ final class AppRoutesFactory implements RoutesFactory {
     );
   }
 
-//   @override
-//   Route createHomePageRoute() {
-//     return CustomRoute(
-//       builder: HomeScreenBuilder(),
-//     );
-//   }
+  @override
+  Route createProductPageRoute() {
+    return CustomRoute(
+      builder: ProductsRouteBuilder(),
+    );
+  }
 
-//   @override
-//   Route createCartPageRoute() {
-//     return CustomRoute(
-//       builder: CartRouteBuilder(),
-//     );
-//   }
+  @override
+  Route createPinPageRoute() {
+    return CustomRoute(
+      builder: PinRouteBuilder(),
+    );
+  }
 
 //   @override
 //   Route createProductsPageRoute(ProductModel model) {

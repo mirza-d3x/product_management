@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (context, state) {
         if (state is SplashInitial) {
           if (state.isUserLoggedIn) {
-            NavigationServices().createHomePageRoute(context);
+            NavigationServices().createPinPageRoute(context);
           } else {
             NavigationServices().createLoginPageRoute(context);
           }

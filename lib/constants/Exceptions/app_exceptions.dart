@@ -9,3 +9,8 @@ class UserAlreadyExistsException implements Exception {}
 class SignOutException implements Exception {}
 
 class GenericAuthException implements Exception {}
+
+class SecureStorageException implements Exception {
+  final String message;
+  SecureStorageException(this.message);
+}

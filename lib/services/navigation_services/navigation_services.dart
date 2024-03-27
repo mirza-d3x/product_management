@@ -23,16 +23,17 @@ class NavigationServices {
     );
   }
 
-  void createHomePageRoute(BuildContext context) {
+  void createProductPageRoute(BuildContext context) {
     Navigator.of(context).pushNamedAndRemoveUntil(
-      RouteNames.home,
+      RouteNames.products,
       (route) => false,
     );
   }
 
-  void createCartPageRoute(BuildContext context) {
-    Navigator.of(context).pushNamed(
-      RouteNames.cart,
+  void createPinPageRoute(BuildContext context) {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      RouteNames.pin,
+      (route) => false,
     );
   }
 
