@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techwarelab/app/features/pin/bloc/pin_bloc.dart';
 import 'package:techwarelab/services/navigation_services/navigation_services.dart';
-
-import '../cubit/pin_cubit.dart';
 
 class PinScreen extends StatelessWidget {
   const PinScreen({super.key});
@@ -14,19 +13,19 @@ class PinScreen extends StatelessWidget {
         title: const Text('PIN'),
         centerTitle: true,
       ),
-      body: BlocConsumer<PinCubit, PinState>(
+      body: BlocConsumer<PinBloc, PinState>(
         listener: (context, state) {
-          if (state is PinCheck) {
-            if (state.status) {
-              context.navigationService.createProductPageRoute(context);
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("PINs do not match"),
-                  duration: Duration(seconds: 2),
-                ),
-              );
-            }
+          if (state is PinCheckSuccessState) {
+            // if (state.status) {
+            context.navigationService.createProductPageRoute(context);
+            // } else {
+          } else if (state is PinCheckFailureState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("PINs do not match"),
+                duration: Duration(seconds: 2),
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -35,7 +34,7 @@ class PinScreen extends StatelessWidget {
               title: 'Set your PIN',
               pin: state.pin,
             );
-          } else if (state is PinConfirm) {
+          } else if (state is PinConfirmState) {
             return PinContainer(
               title: 'Confirm your PIN',
               pin: state.confirmPin,
@@ -132,7 +131,8 @@ class PinKeypad extends StatelessWidget {
         ..._digits.map(
           (digit) => InkWell(
             onTap: () {
-              BlocProvider.of<PinCubit>(context).enterPin(digit.toString());
+              BlocProvider.of<PinBloc>(context)
+                  .add(PinEntered(digit.toString()));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -150,7 +150,7 @@ class PinKeypad extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            BlocProvider.of<PinCubit>(context).clearPin();
+            BlocProvider.of<PinBloc>(context).add(PinClear());
           },
           child: Container(
             decoration: BoxDecoration(
@@ -160,18 +160,40 @@ class PinKeypad extends StatelessWidget {
             child: const Icon(Icons.backspace),
           ),
         ),
-        BlocBuilder<PinCubit, PinState>(
+        BlocBuilder<PinBloc, PinState>(
           builder: (context, state) {
             if (state is PinConfirm) {
               return InkWell(
                 onTap: () {
-                  if (state.confirmPin == state.pin) {
-                    BlocProvider.of<PinCubit>(context).savePin();
+                  // if (state.confirmPin == state.pin) {
+                  BlocProvider.of<PinBloc>(context).add(PinConfirm());
+                  // } else {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     const SnackBar(
+                  //       content:
+                  //           Text("Confirm PINs do not match with Entered Pin"),
+                  //       duration: Duration(seconds: 2),
+                  //     ),
+                  //   );
+                  // }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: const Icon(Icons.done),
+                ),
+              );
+            } else if (state is PinConfirmState) {
+              return InkWell(
+                onTap: () {
+                  if (BlocProvider.of<PinBloc>(context).enteredPin.isNotEmpty) {
+                    BlocProvider.of<PinBloc>(context).add(PinConfirm());
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content:
-                            Text("Confirm PINs do not match with Entered Pin"),
+                        content: Text("Please Enter Your Pin"),
                         duration: Duration(seconds: 2),
                       ),
                     );
@@ -188,10 +210,8 @@ class PinKeypad extends StatelessWidget {
             } else if (state is PinSetupCompleted) {
               return InkWell(
                 onTap: () {
-                  if (BlocProvider.of<PinCubit>(context)
-                      .enteredPin
-                      .isNotEmpty) {
-                    BlocProvider.of<PinCubit>(context).checkPin();
+                  if (BlocProvider.of<PinBloc>(context).enteredPin.isNotEmpty) {
+                    BlocProvider.of<PinBloc>(context).add(PinCheck());
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
