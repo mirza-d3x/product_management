@@ -4,6 +4,12 @@ part of 'products_bloc.dart';
 sealed class ProductsEvent {}
 
 class FetchProductsEvent extends ProductsEvent {
-  @override
-  List<Object> get props => [];
+  // @override
+  // List<Product> get props => [];
+}
+
+class AddProductsEvent extends ProductsEvent {
+  final Product product;
+
+  AddProductsEvent({required this.product});
 }

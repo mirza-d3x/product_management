@@ -20,19 +20,34 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       // TODO: implement event handler
     });
 
+    on<FetchProductsEvent>(_onFetchProducts);
+    add(FetchProductsEvent());
+  }
+  void _onFetchProducts(
+      FetchProductsEvent event, Emitter<ProductsState> emit) async {
+    emit(ProductLoading());
+    try {
+      final products = await _fetchProductsUseCase();
+      consoleLog("Products: $products");
+      emit(ProductLoaded(products: products));
+    } catch (error, stackTrace) {
+      consoleLog("Failed to Fetch Products: ",
+          error: error, stackTrace: stackTrace);
+      emit(ProductError(error: error.toString()));
+    }
+  }
 
-
-    on<FetchProductsEvent>((event, emit) async {
-      emit(ProductLoading());
-      try {
-        final products = await _fetchProductsUseCase();
-        consoleLog("Products: $products");
-        emit(ProductLoaded(products: products));
-      } catch (error, stackTrace) {
-        consoleLog("Failed to Fetch Products: ",
-            error: error, stackTrace: stackTrace);
-        emit(ProductError(error: error.toString()));
-      }
-    });
+  void _onAddProduct(
+      AddProductsEvent event, Emitter<ProductsState> emit) async {
+    emit(ProductLoading());
+    try {
+      final products = await _fetchProductsUseCase();
+      consoleLog("Products: $products");
+      emit(ProductLoaded(products: products));
+    } catch (error, stackTrace) {
+      consoleLog("Failed to Fetch Products: ",
+          error: error, stackTrace: stackTrace);
+      emit(ProductError(error: error.toString()));
+    }
   }
 }

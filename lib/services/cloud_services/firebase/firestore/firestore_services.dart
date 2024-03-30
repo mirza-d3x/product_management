@@ -34,7 +34,12 @@ class FirebaseProductRepository implements ProductRepository {
   Future<List<Product>> getAllProducts() async {
     try {
       final snapshot = await _productsCollection.get();
-      return snapshot.docs.map((doc) => Product.fromJson(doc.data())).toList();
+      final response = await snapshot.docs;
+      if (response.isEmpty) {
+        return [];
+      } else {
+        return response.map((doc) => Product.fromJson(doc.data())).toList();
+      }
     } catch (erorr, stacktrace) {
       consoleLog("Error getting all products",
           error: erorr, stackTrace: stacktrace);
