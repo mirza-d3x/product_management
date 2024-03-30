@@ -59,12 +59,15 @@ class PinBloc extends Bloc<PinEvent, PinState> {
 
   void _onPinEntered(PinEntered event, Emitter<PinState> emit) async {
     if (storedPin.isNotEmpty) {
-      // Check mode
-      enteredPin += event.digit;
+      if (enteredPin.length != 4) {
+        enteredPin += event.digit;
+      }
+
       emit(PinSetupCompleted(pin: enteredPin));
     } else if (enteredPin.length < 4) {
-      enteredPin += event.digit;
-      // Setup mode
+      if (enteredPin.length != 4) {
+        enteredPin += event.digit;
+      }
 
       if (enteredPin.length == 4) {
         emit(PinConfirmState(pin: enteredPin, confirmPin: confirmPin));
@@ -72,8 +75,10 @@ class PinBloc extends Bloc<PinEvent, PinState> {
         emit(PinInitial(pin: enteredPin));
       }
     } else if (enteredPin.length == 4 && confirmPin.length < 4) {
-      confirmPin += event.digit;
-      emit(PinConfirmState(pin: enteredPin, confirmPin: confirmPin));
+      if (confirmPin.length != 4) {
+        confirmPin += event.digit;
+        emit(PinConfirmState(pin: enteredPin, confirmPin: confirmPin));
+      }
     }
   }
 
