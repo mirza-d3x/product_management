@@ -5,6 +5,7 @@ abstract interface class RoutesFactory {
   Route<dynamic> createLoginPageRoute();
   Route<dynamic> createSignUpPageRoute();
   Route<dynamic> createProductPageRoute();
+  Route<dynamic> createAddProductsPageRoute();
   Route<dynamic> createPinPageRoute();
   // Route<dynamic> createProductsPageRoute(ProductModel model);
 }

@@ -30,6 +30,12 @@ class NavigationServices {
     );
   }
 
+  void createAddProductsPageRoute(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      RouteNames.addProducts,
+    );
+  }
+
   void createPinPageRoute(BuildContext context) {
     Navigator.of(context).pushNamedAndRemoveUntil(
       RouteNames.pin,

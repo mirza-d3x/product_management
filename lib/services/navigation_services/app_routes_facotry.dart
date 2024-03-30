@@ -38,6 +38,13 @@ final class AppRoutesFactory implements RoutesFactory {
     );
   }
 
+  @override
+  Route createAddProductsPageRoute() {
+    return CustomRoute(
+      builder: AddProductsRouteBuilder(),
+    );
+  }
+
 //   @override
 //   Route createProductsPageRoute(ProductModel model) {
 //     return CustomRoute(

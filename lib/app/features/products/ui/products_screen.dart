@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:techwarelab/app/features/products/bloc/products_bloc.dart';
-import 'package:techwarelab/app/widgets/custom_elevated_button.dart';
 
 import '../../../../domain/entities/products/products.dart';
 

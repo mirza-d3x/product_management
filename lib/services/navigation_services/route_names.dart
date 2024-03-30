@@ -3,5 +3,6 @@ class RouteNames {
   static const String login = "/login";
   static const String signUp = "/signUp";
   static const String products = "/products";
+  static const String addProducts = "/add_products";
   static const String pin = "/pin";
 }
