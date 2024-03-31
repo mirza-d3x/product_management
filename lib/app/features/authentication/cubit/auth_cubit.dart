@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:techwarelab/constants/Keys/secured_storage_key.dart';
 import 'package:techwarelab/domain/entities/users/users.dart';
 import 'package:techwarelab/domain/use_cases/user/signup_use_cases.dart';
 import 'package:techwarelab/services/cloud_services/firebase/authentication/auth_services.dart';
+import 'package:techwarelab/services/local_data/secured_storage/secured_storage.dart';
 import 'package:techwarelab/utils/console_log.dart';
 
 import '../../../../constants/Exceptions/app_exceptions.dart';
@@ -65,7 +67,9 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   void logOutUser() async {
     try {
       emit(AuthLoading());
+      SecuredStorage securedStorage = SecuredStorage();
       await _authentication.signOut();
+      await securedStorage.delete(SecuredStorageKeys().pinKey);
       emit(UserLoggedOut());
     } catch (error, stackTrace) {
       consoleLog("Error while logging out: ",

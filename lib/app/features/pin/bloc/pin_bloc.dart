@@ -35,7 +35,6 @@ class PinBloc extends Bloc<PinEvent, PinState> {
     try {
       storedPin = await securedStorage.get(SecuredStorageKeys().pinKey) ?? "";
 
-      consoleLog("Stored pin is $storedPin");
       emit(PinSetupCompleted(pin: enteredPin));
     } on SecureStorageException catch (error, stackTrace) {
       consoleLog("Error while getting data from secured storage: ",

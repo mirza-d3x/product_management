@@ -64,18 +64,20 @@ class PinContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(fontSize: 20.0),
-          ),
-          const SizedBox(height: 20.0),
-          PinDisplay(pin: pin),
-          const SizedBox(height: 20.0),
-          PinKeypad(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              title,
+              style: const TextStyle(fontSize: 20.0),
+            ),
+            const SizedBox(height: 20.0),
+            PinDisplay(pin: pin),
+            const SizedBox(height: 20.0),
+            PinKeypad(),
+          ],
+        ),
       ),
     );
   }
