@@ -3,13 +3,10 @@ part of 'products_bloc.dart';
 @immutable
 sealed class ProductsEvent {}
 
-class FetchProductsEvent extends ProductsEvent {
-  // @override
-  // List<Product> get props => [];
-}
+class FetchProductsEvent extends ProductsEvent {}
 
-class AddProductsEvent extends ProductsEvent {
-  final Product product;
+class SearchProductFromList extends ProductsEvent {
+  final String query;
 
-  AddProductsEvent({required this.product});
+  SearchProductFromList({required this.query});
 }
