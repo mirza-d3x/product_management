@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:techwarelab/app/features/pin/cubit/pin_cubit.dart';
 import 'package:techwarelab/app/features/products/bloc/products_bloc.dart';
 import 'package:techwarelab/app/features/products/ui/products_screen.dart';
-import 'package:techwarelab/domain/use_cases/products/add_product_use_cases.dart';
 import 'package:techwarelab/domain/use_cases/products/fetch_product_use_cases.dart';
 import '../../../../services/cloud_services/firebase/firestore/firestore_services.dart';
 
@@ -13,7 +11,6 @@ class ProductsRouteBuilder {
         FirebaseProductRepository();
     return BlocProvider(
       create: (context) => ProductsBloc(
-        AddProductUseCase(productRepository),
         FetchProductsUseCase(productRepository),
       ),
       child: const ProductsScreen(),

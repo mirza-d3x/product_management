@@ -10,7 +10,7 @@ class FirebaseProductRepository implements ProductRepository {
   }
 
   late FirebaseFirestore _firestore;
-  late final _productsCollection;
+  late final CollectionReference<Map<String, dynamic>> _productsCollection;
 
   void init() {
     _firestore = FirebaseFirestore.instance;
@@ -22,7 +22,7 @@ class FirebaseProductRepository implements ProductRepository {
     try {
       await _productsCollection.add(product.toJson());
 
-      await _productsCollection.doc(product.id).set(product.toJson());
+      await _productsCollection.doc(product.name).set(product.toJson());
     } catch (error) {
       consoleLog("Failed to add product: ", error: error);
 
@@ -33,12 +33,16 @@ class FirebaseProductRepository implements ProductRepository {
   @override
   Future<List<Product>> getAllProducts() async {
     try {
-      final snapshot = await _productsCollection.get();
-      final response = await snapshot.docs;
-      if (response.isEmpty) {
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await _productsCollection
+              .get(const GetOptions(source: Source.serverAndCache));
+      consoleLog("response: ${snapshot.docChanges}");
+      if (snapshot.docs.isEmpty) {
         return [];
       } else {
-        return response.map((doc) => Product.fromJson(doc.data())).toList();
+        return snapshot.docs
+            .map((doc) => Product.fromJson(doc.data()))
+            .toList();
       }
     } catch (erorr, stacktrace) {
       consoleLog("Error getting all products",
