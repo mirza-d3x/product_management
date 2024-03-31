@@ -9,10 +9,10 @@ import '../../../../services/cloud_services/firebase/authentication/auth_service
 
 class SignupRouteBuilder {
   Widget call(BuildContext context) {
-    final FirebaseAuthServices _authService = FirebaseAuthServices();
+    final FirebaseAuthServices authService = FirebaseAuthServices();
     return BlocProvider(
       create: (context) => AuthenticationCubit(
-          LoginUserUseCase(_authService), SignUpUserUseCase(_authService)),
+          LoginUserUseCase(authService), SignUpUserUseCase(authService)),
       child: const SignupScreen(),
     );
   }

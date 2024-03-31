@@ -30,7 +30,7 @@ class AddProductsBloc extends Bloc<AddProductsEvent, AddProductsState> {
   void _onAddImage(AddImageEvent event, Emitter<AddProductsState> emit) async {
     try {
       imageFile = await imagePicker();
-      consoleLog("Image picked" + "data: ${imageFile!.path}");
+      consoleLog("Image picked" "data: ${imageFile!.path}");
       emit(AddProductsInitial(imagePath: imageFile!.path, isLoading: false));
     } catch (error, stackTrace) {
       consoleLog("Erorr while adding image",

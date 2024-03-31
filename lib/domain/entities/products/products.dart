@@ -1,12 +1,12 @@
 class Product {
-  final String id;
+  final String? id;
   final String name;
   final String description;
   final double price;
   final String imageUrl;
 
   Product({
-    required this.id,
+    this.id,
     required this.name,
     required this.description,
     required this.price,
@@ -25,7 +25,6 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'description': description,
       'price': price,

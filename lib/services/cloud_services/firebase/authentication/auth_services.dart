@@ -88,6 +88,7 @@ class FirebaseAuthServices implements AuthRepository {
   // Function to check if the user is logged in
   Future<bool> isLoggedIn() async {
     // Simply check if FirebaseAuth's current user is logged in
+    consoleLog("User Logged in:${_firebaseAuth.currentUser!.email!}");
     return _firebaseAuth.currentUser != null;
   }
 }
